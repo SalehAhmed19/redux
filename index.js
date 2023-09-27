@@ -1,14 +1,10 @@
 // defining the constants
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
-const ADD_USER = "ADD_USER";
 
 // state
 const initialCounterState = {
   count: 0,
-};
-const initialUserState = {
-  users: [{ name: "John Smith" }],
 };
 
 // action - Object - type (must) and payload (for data passing)
@@ -27,12 +23,24 @@ const decrementCounter = () => {
   };
 };
 
-// Add User
-const addUSer = () => {
-  return {
-    type: ADD_USER,
-    payload: { name: "Steven Hocking" },
-  };
+// create reducer function
+const counterReducer = (state = initialCounterState, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state, // get all properties
+        count: state.count + 1,
+      };
+
+    case DECREMENT:
+      return {
+        ...state, // get all proper
+        count: state.count - 1,
+      };
+
+    default:
+      state;
+  }
 };
 
 /****
