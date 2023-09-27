@@ -1,4 +1,5 @@
-const { createStore, combineReducers } = require("redux");
+const { createStore, applyMiddleware } = require("redux");
+const { default: logger } = require("redux-logger");
 
 // productReducer
 // products constants
@@ -31,18 +32,18 @@ const addProduct = (product) => {
     payload: product,
   };
 };
-// actions cart
-const getCarts = () => {
-  return {
-    type: GET_CARTS,
-  };
-};
-const addCart = (product) => {
-  return {
-    type: ADD_CART,
-    payload: product,
-  };
-};
+// // actions cart
+// const getCarts = () => {
+//   return {
+//     type: GET_CARTS,
+//   };
+// };
+// const addCart = (product) => {
+//   return {
+//     type: ADD_CART,
+//     payload: product,
+//   };
+// };
 
 // product reducer
 const productReducer = (state = initialProductState, action) => {
@@ -60,30 +61,30 @@ const productReducer = (state = initialProductState, action) => {
       return state;
   }
 };
-// cart reducer
-const cartReducer = (state = initialCartState, action) => {
-  switch (action.type) {
-    case GET_CARTS:
-      return {
-        ...state,
-      };
-    case ADD_CART:
-      return {
-        cart: [...state.cart, action.payload],
-        numberOfProducts: state.numberOfProducts + 1,
-      };
-    default:
-      return state;
-  }
-};
+// // cart reducer
+// const cartReducer = (state = initialCartState, action) => {
+//   switch (action.type) {
+//     case GET_CARTS:
+//       return {
+//         ...state,
+//       };
+//     case ADD_CART:
+//       return {
+//         cart: [...state.cart, action.payload],
+//         numberOfProducts: state.numberOfProducts + 1,
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
-const rootReducer = combineReducers({
-  productR: productReducer,
-  cartR: cartReducer,
-});
+// const rootReducer = combineReducers({
+//   productR: productReducer,
+//   cartR: cartReducer,
+// });
 
 // store
-const store = createStore(rootReducer);
+const store = createStore(productReducer, applyMiddleware(logger));
 
 store.subscribe(() => {
   console.log(store.getState());
@@ -91,7 +92,5 @@ store.subscribe(() => {
 
 store.dispatch(getProducts());
 store.dispatch(addProduct("Egg"));
-store.dispatch(getCarts());
-store.dispatch(addCart("Pen"));
 
 // cartReducer
