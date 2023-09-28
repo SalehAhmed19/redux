@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+section{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 0.5rem;
+  padding: 1rem;
+}
+article{
+  background-color: #293462;
+  color: #fff;
+  padding: 0.5rem;
+}
